@@ -1,3 +1,5 @@
+//data
+
 export const herosPersonajes = [
     { id: 1, nombre: "A-Bomb", imagen: "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/images/md/1-a-bomb.jpg" },
     
