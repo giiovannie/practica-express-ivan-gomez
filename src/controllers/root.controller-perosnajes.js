@@ -51,7 +51,6 @@ export const agregarPersonaje = (req, res) => {
   }
 };
 
-
 export const editarPersonaje = (req, res) => {
   const idReq = Number(req.params.id);
 
@@ -80,4 +79,25 @@ export const editarPersonaje = (req, res) => {
   }
 };
 
+export const borrarPersonaje = (req, res) => {
+  let idborrar = Number(req.params.id);
+
+  if (idborrar < 0 || isNaN(idborrar)) {
+    return res.status(400).json(errorClient);
+  }
+
+  let personajeBorrar = herosPersonajes.find(skin => skin.id === idborrar);
+
+  if (!personajeBorrar) {
+    return res.status(404).json(errorClient);
+  } else {
+      let objetoEncontrado = herosPersonajes.find(skin => skin.id === idborrar )
+
+      console.log(objetoEncontrado)
+
+      let heroesFiltrados =  herosPersonajes.filter(skin=> skin.id !== objetoEncontrado.id)
+
+      return res.json(heroesFiltrados)
+  }
+};
 
