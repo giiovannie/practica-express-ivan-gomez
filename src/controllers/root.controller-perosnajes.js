@@ -14,8 +14,8 @@ export const traerPersonajesID = (req, res) => {
   let objetoReqParams = Number(req.params.id);
 
   if (objetoReqParams < 0 || isNaN(objetoReqParams)) {
-    return res.status(400).json(errorClient)
-  }else{
+    return res.status(400).json(errorClient);
+  } else {
     let personaID = herosPersonajes.find((skin) => {
       return objetoReqParams === skin.id;
     });
@@ -25,32 +25,59 @@ export const traerPersonajesID = (req, res) => {
     } else {
       return res.json(personaID);
     }
-  }  
+  }
 };
 
-
-export const agregarPersonaje = (req,res)=>{
-  
+export const agregarPersonaje = (req, res) => {
   const body = req.body;
   console.log(req.body);
 
-
-  
-  if(body.nombre === undefined || body.imagen === undefined){
+  if (body.nombre === undefined || body.imagen === undefined) {
     return res.status(400).json(errorClient);
-  }else{
+  } else {
     const nombre = req.body.nombre;
     const imagen = req.body.imagen;
 
     let inyeccionReq = {
       id: herosPersonajes[herosPersonajes.length - 1].id + 1,
       nombre,
-      imagen
-    }
+      imagen,
+    };
 
-    herosPersonajes.push(inyeccionReq)
-    console.log(herosPersonajes)
+    herosPersonajes.push(inyeccionReq);
+    console.log(herosPersonajes);
 
-    return res.json(herosPersonajes)
+    return res.json(herosPersonajes);
   }
-}
+};
+
+
+export const editarPersonaje = (req, res) => {
+  const idReq = Number(req.params.id);
+
+  if (idReq < 0 || isNaN(idReq)) {
+    return res.status(400).json(errorClient);
+  } else {
+    let idEncontrado = herosPersonajes.find((skin) => idReq === skin.id);
+
+    if (!idEncontrado) {
+      return res.status(404).json(errorClient);
+    } else {
+
+      let newHeroPersonajes = [...herosPersonajes]
+
+      newHeroPersonajes = herosPersonajes.map(personas =>{
+        if(personas.id === idReq){
+          return {...personas, ...req.body}
+        }else{
+          return personas
+        }
+      })
+
+      // console.log(newHeroPersonajes);
+      return res.json(newHeroPersonajes)
+    }
+  }
+};
+
+
