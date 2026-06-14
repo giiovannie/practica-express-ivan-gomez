@@ -1,8 +1,8 @@
 //routers
 import { Router } from "express";
-import { crearPersonajes } from "../controllers/root.controller-perosnajes.js";
+import { traerPersonajes, traerPersonajesID } from "../controllers/root.controller-perosnajes.js";
 
 export const herosPersonajesRouter = Router()
 
-herosPersonajesRouter.get("/", crearPersonajes)
-
+herosPersonajesRouter.get("/", traerPersonajes)
+herosPersonajesRouter.get("/:id", traerPersonajesID )
